@@ -6,3 +6,7 @@ cache/
 *.log.*
 *.log
 *.tgz
+.direnv/
+.envrc
+.nixpkgs-version.json
+!src/spinoffs/XPathParser.d.ts

@@ -9,6 +9,7 @@
     "build:clean": "mkdir -p lib && rm -rf lib/",
     "build:pegjs": "mkdir -p lib/spinoffs && pegjs -o lib/spinoffs/XPathParser.js src/spinoffs/XPathParser.pegjs",
     "build:typescript": "tsc -p tsconfig.json",
+    "prepare": "npm-run-all build:*",
     "test": "npm-run-all test:*",
     "test:build": "npm-run-all test:build:*",
     "test:build:clean": "cd test && mkdir -p cache && rm -rf cache && mkdir -p xmlns && rm -rf xmlns && cd ..",
