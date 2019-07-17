@@ -16,25 +16,25 @@
     "test:build:compile": "npm-run-all test:build:compile:*",
     "test:build:compile:dir-example": "cd test && cxsd file://$PWD'/input/dir-example.xsd' && cd ..",
     "test:build:compile:GPML2013a": "cd test && cxsd file://$PWD'/input/GPML2013a.xsd' && cd ..",
-    "test-remote-disabled:build:compile:dir-example": "cd test && cxsd https://cdn.rawgit.com/charto/cxml/master/test/cache/xsd/localhost/example-dir.xsd && cd ..",
-    "test-remote-disabled:build:compile:GPML2013a": "cd test && cxsd https://cdn.rawgit.com/ariutta/GPML/9a8cb502c8745058c0611106f33a0f383819b3f0/GPML2013a.xsd && cd ..",
+    "test:build:compile:GPML2013a-remote": "cd test && cxsd https://raw.githubusercontent.com/ariutta/GPML/master/GPML2013a.xsd && cd ..",
     "test:localize": "npm-run-all test:localize:*",
-    "test:localize:dir-example": "cd test/xmlns && sed -i '' 's/@wikipathways\\/cxml/..\\/..\\/lib\\/cxml/' dir-example.js && cd ../..",
-    "test:localize:2013a": "cd ./test/xmlns/pathvisio.org/GPML && sed -i '' 's/@wikipathways\\/cxml/..\\/..\\/..\\/..\\/lib\\/cxml/' 2013a.js && cd ../../../../",
-    "test:localize:biopax-level3.owl": "cd ./test/xmlns/www.biopax.org/release/ && sed -i '' 's/@wikipathways\\/cxml/..\\/..\\/..\\/..\\/lib\\/cxml/' biopax-level3.owl.js && cd ../../../../",
-    "test:localize:22-rdf-syntax-ns": "cd ./test/xmlns/www.w3.org/1999/02/ && sed -i '' 's/@wikipathways\\/cxml/..\\/..\\/..\\/..\\/..\\/lib\\/cxml/' 22-rdf-syntax-ns.js && cd ../../../../../",
-    "test:localize:xml-primitives": "cd ./test/xmlns/ && sed -i '' 's/@wikipathways\\/cxml/..\\/..\\/lib\\/cxml/' xml-primitives.js && cd ../../",
+    "test:localize:dir-example": "cd test/xmlns && sed -i'' 's#@wikipathways\\/cxml#..\\/..\\/lib\\/cxml#' dir-example.js && cd ../..",
+    "test:localize:2013a": "cd ./test/xmlns/pathvisio.org/GPML && sed -i'' 's#@wikipathways\\/cxml#..\\/..\\/..\\/..\\/lib\\/cxml#' 2013a.js && cd ../../../../",
+    "test:localize:biopax-level3.owl": "cd ./test/xmlns/www.biopax.org/release/ && sed -i'' 's#@wikipathways\\/cxml#..\\/..\\/..\\/..\\/lib\\/cxml#' biopax-level3.owl.js && cd ../../../../",
+    "test:localize:22-rdf-syntax-ns": "cd ./test/xmlns/www.w3.org/1999/02/ && sed -i'' 's#@wikipathways\\/cxml#..\\/..\\/..\\/..\\/..\\/lib\\/cxml#' 22-rdf-syntax-ns.js && cd ../../../../../",
+    "test:localize:xml-primitives": "cd ./test/xmlns/ && sed -i'' 's#@wikipathways\\/cxml#..\\/..\\/lib\\/cxml#' xml-primitives.js && cd ../../",
     "test:run": "jest"
   },
   "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js"],
     "testEnvironment": "node",
     "transform": {
-      "\\.(ts|tsx|.js|.jsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "\\.(ts|tsx|.js|.jsx)$": "ts-jest"
+    },
+    "testPathIgnorePatterns": ["<rootDir>/(node_modules)/"],
+    "transformIgnorePatterns": ["<rootDir>/(node_modules)/"],
+    "haste": {
+      "providesModuleNodeModules": [".*"]
     },
     "testRegex": "((/src/.*\\.test\\.(ts|tsx|js))|(/test/spec/.*\\.(ts|tsx|js)))$"
   },
@@ -62,20 +62,18 @@
     "@types/lodash": "^4.14.119",
     "@types/node": "^7.10.2",
     "@types/sax": "^0.0.28",
-    "@wikipathways/cxsd": "^0.2.5",
     "bluebird": "^3.5.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "sax": "^1.2.4"
   },
   "devDependencies": {
-    "@types/circular-json": "^0.1.31",
     "@types/jest": "^19.2.4",
-    "circular-json": "^0.3.3",
+    "@wikipathways/cxsd": "^0.2.5",
     "jest": "^20.0.4",
     "npm-run-all": "^4.1.5",
     "pegjs": "^0.10.0",
     "source-map-support": "^0.4.18",
     "ts-jest": "^20.0.14",
-    "typescript": "^2.9.2"
+    "typescript": "^3.5.3"
   }
 }

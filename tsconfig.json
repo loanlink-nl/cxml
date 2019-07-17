@@ -2,13 +2,7 @@
   "compilerOptions": {
     "declaration": true,
     "experimentalDecorators": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es5",
-      "es6",
-      "scripthost"
-    ],
+    "lib": ["dom", "dom.iterable", "es5", "es6", "scripthost"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -19,8 +13,6 @@
     "inlineSources": true,
     "target": "es5"
   },
-  "files": [
-    "src/cxml.ts",
-    "src/spinoffs/XPathParser.d.ts"
-  ]
+  "include": ["src/**/*.ts"],
+  "files": ["src/cxml.ts", "src/spinoffs/XPathParser.d.ts"]
 }

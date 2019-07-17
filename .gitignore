@@ -9,4 +9,5 @@ cache/
 .direnv/
 .envrc
 .nixpkgs-version.json
+shell.nix
 !src/spinoffs/XPathParser.d.ts

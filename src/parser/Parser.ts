@@ -250,7 +250,10 @@ function convertPrimitive(text: string, type: Rule) {
 
   if (converter) {
     if (type.isList) {
-      return text.trim().split(/\s+/).map(converter);
+      return text
+        .trim()
+        .split(/\s+/)
+        .map(converter);
     } else {
       return converter(text.trim());
     }
@@ -281,9 +284,13 @@ export class Parser<T> {
     const realHandler = (handler as RuleClass).rule.handler;
     const realProto = realHandler.prototype as CustomHandler;
 
-    for (const key of Object.keys(proto)) {
-      if (["_before", "_after"].indexOf(key) === -1) {
-        realProto[key] = proto[key];
+    type CustomHandlerKey = keyof CustomHandler;
+    const customHandlerKeys: CustomHandlerKey[] = Object.keys(proto);
+
+    for (const customHandlerKey of customHandlerKeys) {
+      const timeBasedKeys: CustomHandlerKey[] = ["_before", "_after"];
+      if (timeBasedKeys.indexOf(customHandlerKey) === -1) {
+        realProto[customHandlerKey] = proto[customHandlerKey];
       }
     }
 
@@ -323,11 +330,13 @@ export class Parser<T> {
                 isRunningMatch &&
                 candidateItemParsed[xpathElMatcherKey] === xpathElMatcherValue
               );
-            }, true);
+            },
+            true);
           }) || [new Map(), xpathElMatcher];
           parentMap.set(currentItemParsed, currentMap);
           return currentMap;
-        }, this.bTree);
+        },
+        this.bTree);
 
         if (_before) {
           finalItem.set(
@@ -354,16 +363,15 @@ export class Parser<T> {
     output: Output,
     context?: Context
   ) {
-    return new Promise<
-      Output
-    >((resolve: (item: Output) => void, reject: (err: Error) => void) =>
-      this._parse<Output>(
-        stream,
-        output,
-        context || defaultContext,
-        resolve,
-        reject
-      )
+    return new Promise<Output>(
+      (resolve: (item: Output) => void, reject: (err: Error) => void) =>
+        this._parse<Output>(
+          stream,
+          output,
+          context || defaultContext,
+          resolve,
+          reject
+        )
     );
   }
 
