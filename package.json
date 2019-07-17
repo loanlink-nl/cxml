@@ -16,7 +16,8 @@
     "build:clean": "mkdir -p lib && rm -rf lib/",
     "build:pegjs": "mkdir -p lib/spinoffs && pegjs -o lib/spinoffs/XPathParser.js src/spinoffs/XPathParser.pegjs",
     "build:typescript": "tsc -p tsconfig.json",
-    "prepare": "if [ -d ./node_modules ]; then npm-run-all build:*; else echo 'Alle configuration detected. Building from the top-level alle directory...'; (cd ../../../../; npm run '@wikipathways/cxml:build'); fi",
+    "prepare": "if [ -d ./node_modules ]; then npm run build; else echo 'Alle configuration detected. Building from the top-level alle directory...'; (cd ../../../../; npm run '@wikipathways/cxml:build'); fi",
+    "prepublishOnly": "if [ -d ./node_modules ]; then npm run test; else echo 'Alle configuration detected. Testing from the top-level alle directory...'; (cd ../../../../; npm run '@wikipathways/cxml:test'); fi",
     "test": "npm-run-all test:*",
     "test:build": "npm-run-all --silent test:build:*",
     "test:build:clean": "cd test && mkdir -p cache && rm -rf cache && mkdir -p xmlns && rm -rf xmlns && cd ..",
@@ -33,15 +34,25 @@
     "test:run": "jest"
   },
   "jest": {
-    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
     "testEnvironment": "node",
     "transform": {
       "\\.(ts|tsx|.js|.jsx)$": "ts-jest"
     },
-    "testPathIgnorePatterns": ["<rootDir>/(node_modules)/"],
-    "transformIgnorePatterns": ["<rootDir>/(node_modules)/"],
+    "testPathIgnorePatterns": [
+      "<rootDir>/(node_modules)/"
+    ],
+    "transformIgnorePatterns": [
+      "<rootDir>/(node_modules)/"
+    ],
     "haste": {
-      "providesModuleNodeModules": [".*"]
+      "providesModuleNodeModules": [
+        ".*"
+      ]
     },
     "testRegex": "((/src/.*\\.test\\.(ts|tsx|js))|(/test/spec/.*\\.(ts|tsx|js)))$"
   },
