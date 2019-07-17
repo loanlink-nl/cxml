@@ -4,12 +4,19 @@
   "description": "Advanced schema-aware streaming XML parser",
   "main": "lib/cxml.js",
   "typings": "lib/cxml.d.ts",
+  "files": [
+    "./lib",
+    "./package.json",
+    "./package-lock.json",
+    "./README.md",
+    "./LICENSE"
+  ],
   "scripts": {
     "build": "npm-run-all build:*",
     "build:clean": "mkdir -p lib && rm -rf lib/",
     "build:pegjs": "mkdir -p lib/spinoffs && pegjs -o lib/spinoffs/XPathParser.js src/spinoffs/XPathParser.pegjs",
     "build:typescript": "tsc -p tsconfig.json",
-    "prepare": "npm-run-all build:*",
+    "prepare": "if [ -d ./node_modules ]; then npm-run-all build:*; else echo 'Alle configuration detected. Building from the top-level alle directory...'; (cd ../../../../; npm run '@wikipathways/cxml:build'); fi",
     "test": "npm-run-all test:*",
     "test:build": "npm-run-all --silent test:build:*",
     "test:build:clean": "cd test && mkdir -p cache && rm -rf cache && mkdir -p xmlns && rm -rf xmlns && cd ..",
