@@ -1,15 +1,11 @@
 {
   "name": "@wikipathways/cxml",
-  "version": "0.2.4",
+  "version": "0.2.11",
   "description": "Advanced schema-aware streaming XML parser",
   "main": "lib/cxml.js",
   "typings": "lib/cxml.d.ts",
   "files": [
-    "./lib",
-    "./package.json",
-    "./package-lock.json",
-    "./README.md",
-    "./LICENSE"
+    "lib"
   ],
   "scripts": {
     "build": "npm-run-all build:*",
