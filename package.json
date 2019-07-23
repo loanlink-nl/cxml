@@ -81,7 +81,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/charto/cxml.git"
+    "url": "git+https://github.com/ariutta/cxml.git"
   },
   "bugs": {
     "url": "https://github.com/charto/cxml/issues"
