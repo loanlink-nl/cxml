@@ -10,15 +10,6 @@
     ],
     "target": "es5"
   },
-  "references1": [
-    {
-      "path": "../cxsd"
-    }
-  ],
-  "rootDirs1": [
-    "./",
-    "../cxsd/"
-  ],
   "include": [
     "./test/**/*.ts"
   ]

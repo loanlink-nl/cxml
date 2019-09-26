@@ -1,4 +1,3 @@
-/// <reference path="./XPathParser.d.ts" />
 /*
 this worked:
 ./node_modules/pegjs/bin/pegjs src/spinoffs/xpathParser.pegjs && tsc --allowJs src/spinoffs/xpath.ts --outDir ./ && node xpath.js 
