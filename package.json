@@ -94,7 +94,7 @@
   ],
   "dependencies": {
     "@types/bluebird": "^3.5.27",
-    "@types/lodash": "^4.14.139",
+    "@types/lodash": "^4.14.141",
     "@types/node": "^10.14.19",
     "@types/sax": "^0.0.28",
     "bluebird": "^3.5.5",
