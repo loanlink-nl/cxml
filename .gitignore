@@ -1,6 +1,7 @@
 node_modules/
 typings/
 cache/
+lib/
 *.js
 *.d.ts
 *.log.*
