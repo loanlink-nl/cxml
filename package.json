@@ -97,7 +97,7 @@
     "@types/bluebird": "^3.5.27",
     "@types/lodash": "^4.14.141",
     "@types/node": "^10.14.19",
-    "@types/sax": "^0.0.28",
+    "@types/sax": "^1.2.0",
     "bluebird": "^3.5.5",
     "lodash": "^4.17.15",
     "sax": "^1.2.4"
