@@ -3,7 +3,6 @@
 
 import { pick, toPairs } from "lodash";
 import * as stream from "stream";
-import * as Promise from "bluebird";
 import * as sax from "sax";
 
 import { Context } from "../xml/Context";
@@ -42,7 +41,7 @@ export interface CxmlDate extends Date {
 function findInMapIter<T>(
   // TODO why can't I mark this as BTree<T> instead of any?
   mapIter: Iterator<[ItemParsed, any]>,
-  compare: (x: ItemParsed) => boolean
+  compare: (x: ItemParsed) => boolean,
 ): BTree<T> {
   const { value, done } = mapIter.next();
   if (!value) {
@@ -61,7 +60,7 @@ function findInMapIter<T>(
 
 export type NonBinaryOpToRights = { [K in "=" | "!="]: string | number };
 export type BinaryOpToRights = {
-  [K in "&lt;" | "&lt;=" | "&gt;" | ">" | "&gt;=" | ">="]: number
+  [K in "&lt;" | "&lt;=" | "&gt;" | ">" | "&gt;=" | ">="]: number;
 };
 // TODO look at moving some of these type definitions into xpath.ts
 export type OpToRights = NonBinaryOpToRights & BinaryOpToRights;
@@ -81,29 +80,29 @@ export type OpHandlers = OpHandlersGeneric<OpToRights, keyof OpToRights>;
 
 let opHandlers = {
   // equal
-  "=": function(item, left, right) {
+  "=": function (item, left, right) {
     return item[left] === right;
   },
   // not equal
-  "!=": function(item, left, right) {
+  "!=": function (item, left, right) {
     return item[left] !== right;
   },
   // less than
-  "&lt;": function(item, left, right) {
+  "&lt;": function (item, left, right) {
     return item[left] < right;
   },
   // less than or equal to
-  "&lt;=": function(item, left, right) {
+  "&lt;=": function (item, left, right) {
     return item[left] < right;
   },
   // greater than
-  "&gt;": function(item, left, right) {
+  "&gt;": function (item, left, right) {
     return item[left] > right;
   },
   // greater than or equal to
-  "&gt;=": function(item, left, right) {
+  "&gt;=": function (item, left, right) {
     return item[left] > right;
-  }
+  },
 } as OpHandlers;
 
 opHandlers[">"] = opHandlers["&gt;"];
@@ -122,7 +121,7 @@ opHandlers["="]({} as HandlerInstance, "a", 2);
 
 function findEntry<T>(
   mapIter: Iterator<[ItemParsed, BTree<T>]>,
-  compare: (x: ItemParsed) => boolean
+  compare: (x: ItemParsed) => boolean,
 ): [BTree<T>, ItemParsed] {
   const { value, done } = mapIter.next();
   if (!value) {
@@ -142,7 +141,7 @@ function findEntry<T>(
 function getAttachmentMethod<T>(
   state: State,
   bTree: BTree<T>,
-  attachmentMethodName: AttachmentMethodNames
+  attachmentMethodName: AttachmentMethodNames,
 ): Function {
   const member =
     (!!state.memberRef && state.memberRef.member) ||
@@ -158,7 +157,7 @@ function getAttachmentMethod<T>(
       return attachmentMethod;
     } else {
       throw new Error(
-        `getAttachmentMethod failed to find ${attachmentMethodName} function`
+        `getAttachmentMethod failed to find ${attachmentMethodName} function`,
       );
     }
   }
@@ -173,22 +172,23 @@ function getAttachmentMethod<T>(
               }
 							//*/
 
-  const value = findInMapIter(bTree.entries(), function({
-    axis,
-    namespace,
-    name,
-    predicates,
-    attribute
-  }: ItemParsed) {
-    return (
-      ["", memberNamespace].indexOf(namespace) > -1 &&
-      name === memberName &&
-      (!predicates ||
-        predicates.reduce(function(acc, { left, op, right }: OpHandlerInput) {
-          return acc && opHandlers[op](item, left, right);
-        }, true))
-    );
-  });
+  const value = findInMapIter(
+    bTree.entries(),
+    function ({ axis, namespace, name, predicates, attribute }: ItemParsed) {
+      return (
+        ["", memberNamespace].indexOf(namespace) > -1 &&
+        name === memberName &&
+        (!predicates ||
+          predicates.reduce(function (
+            acc,
+            { left, op, right }: OpHandlerInput,
+          ) {
+            return acc && opHandlers[op](item, left, right);
+          },
+          true))
+      );
+    },
+  );
 
   if (!value) {
     // NOTE: we can end up here because there is no direct connection between
@@ -213,7 +213,7 @@ function getAttachmentMethod<T>(
 const converterTbl: { [type: string]: (item: string) => any } = {
   Date: (item: string) => {
     const dateParts = item.match(
-      /([0-9]+)-([0-9]+)-([0-9]+)(?:T([0-9]+):([0-9]+):([0-9]+)(\.[0-9]+)?)?(?:Z|([+-][0-9]+):([0-9]+))?/
+      /([0-9]+)-([0-9]+)-([0-9]+)(?:T([0-9]+):([0-9]+):([0-9]+)(\.[0-9]+)?)?(?:Z|([+-][0-9]+):([0-9]+))?/,
     );
 
     if (!dateParts) return null;
@@ -232,7 +232,7 @@ const converterTbl: { [type: string]: (item: string) => any } = {
       +(dateParts[4] || "0"),
       +(dateParts[5] || "0"),
       +(dateParts[6] || "0"),
-      +(dateParts[7] || "0") * 1000
+      +(dateParts[7] || "0") * 1000,
     ) as CxmlDate;
 
     date.setTime(date.getTime() - (offset + date.getTimezoneOffset()) * 60000);
@@ -242,7 +242,7 @@ const converterTbl: { [type: string]: (item: string) => any } = {
   },
   boolean: (item: string) => item == "true",
   string: (item: string) => item,
-  number: (item: string) => +item
+  number: (item: string) => +item,
 };
 
 function convertPrimitive(text: string, type: Rule) {
@@ -250,10 +250,7 @@ function convertPrimitive(text: string, type: Rule) {
 
   if (converter) {
     if (type.isList) {
-      return text
-        .trim()
-        .split(/\s+/)
-        .map(converter);
+      return text.trim().split(/\s+/).map(converter);
     } else {
       return converter(text.trim());
     }
@@ -277,7 +274,7 @@ export class Parser<T> {
     handler: {
       new (): CustomHandler;
     },
-    xpath: string
+    xpath: string,
   ) {
     const { xpathNamespaceTbl } = this;
     const proto = handler.prototype as CustomHandler;
@@ -310,29 +307,27 @@ export class Parser<T> {
         if (reversedXPathElMatchers[0].attribute !== null) {
           xpathAttrMatcher = reversedXPathElMatchers.shift();
         }
-        const finalItem = reversedXPathElMatchers.reduce(function(
+        const finalItem = reversedXPathElMatchers.reduce(function (
           parentMap,
-          xpathElMatcher: ItemParsed
+          xpathElMatcher: ItemParsed,
         ) {
           const xpathElMatcherPairs = toPairs(xpathElMatcher);
-          let [currentMap, currentItemParsed]: [
-            BTree<T>,
-            ItemParsed
-          ] = findEntry(parentMap.entries(), function(candidateItemParsed) {
-            return xpathElMatcherPairs.reduce(function(
-              isRunningMatch: boolean,
-              [xpathElMatcherKey, xpathElMatcherValue]: [
-                ItemParsedKey,
-                ItemParsedValue
-              ]
-            ) {
-              return (
-                isRunningMatch &&
-                candidateItemParsed[xpathElMatcherKey] === xpathElMatcherValue
-              );
-            },
-            true);
-          }) || [new Map(), xpathElMatcher];
+          let [currentMap, currentItemParsed]: [BTree<T>, ItemParsed] =
+            findEntry(parentMap.entries(), function (candidateItemParsed) {
+              return xpathElMatcherPairs.reduce(function (
+                isRunningMatch: boolean,
+                [xpathElMatcherKey, xpathElMatcherValue]: [
+                  ItemParsedKey,
+                  ItemParsedValue,
+                ],
+              ) {
+                return (
+                  isRunningMatch &&
+                  candidateItemParsed[xpathElMatcherKey] === xpathElMatcherValue
+                );
+              },
+              true);
+            }) || [new Map(), xpathElMatcher];
           parentMap.set(currentItemParsed, currentMap);
           return currentMap;
         },
@@ -343,10 +338,10 @@ export class Parser<T> {
             "_before",
             !xpathAttrMatcher || xpathAttrMatcher.attribute === "*"
               ? _before
-              : function(this: Map<string, string | number | boolean | "">) {
+              : function (this: Map<string, string | number | boolean | "">) {
                   const picked = pick(this, xpathAttrMatcher.attribute);
                   _before.call(picked);
-                }
+                },
           );
         }
         if (_after) {
@@ -361,7 +356,7 @@ export class Parser<T> {
   parse<Output extends HandlerInstance>(
     stream: string | stream.Readable | NodeJS.ReadableStream,
     output: Output,
-    context?: Context
+    context?: Context,
   ) {
     return new Promise<Output>(
       (resolve: (item: Output) => void, reject: (err: Error) => void) =>
@@ -370,8 +365,8 @@ export class Parser<T> {
           output,
           context || defaultContext,
           resolve,
-          reject
-        )
+          reject,
+        ),
     );
   }
 
@@ -380,18 +375,18 @@ export class Parser<T> {
     output: Output,
     context: Context,
     resolve: (item: Output) => void,
-    reject: (err: Error) => void
+    reject: (err: Error) => void,
   ) {
     const { bTree } = this;
     const xml = sax.createStream(true, { position: true });
     let rule = (output.constructor as RuleClass).rule;
     const xmlSpace = context.registerNamespace(
-      "http://www.w3.org/XML/1998/namespace"
+      "http://www.w3.org/XML/1998/namespace",
     );
 
     let namespaceTbl: { [short: string]: [Namespace, string] } = {
       "": [rule.namespace, rule.namespace.getPrefix()],
-      xml: [xmlSpace, xmlSpace.getPrefix()]
+      xml: [xmlSpace, xmlSpace.getPrefix()],
     };
 
     let state = new State(null, null, rule, new rule.handler(), namespaceTbl);
@@ -434,7 +429,7 @@ export class Parser<T> {
           if (nsParts) {
             addNamespace(
               nsParts[2] || "",
-              context.registerNamespace(attrTbl[key])
+              context.registerNamespace(attrTbl[key]),
             );
           }
         }
@@ -466,7 +461,7 @@ export class Parser<T> {
               child.proxy,
               rule,
               new rule.handler(),
-              namespaceTbl
+              namespaceTbl,
             );
           }
 
@@ -503,7 +498,7 @@ export class Parser<T> {
           if (ref && ref.member.rule.isPlainPrimitive) {
             item[ref.safeName] = convertPrimitive(
               attrTbl[key],
-              ref.member.rule
+              ref.member.rule,
             );
           }
         }
@@ -511,13 +506,13 @@ export class Parser<T> {
         if (state.parent) {
           Object.defineProperty(item, "_parent", {
             enumerable: false,
-            value: state.parent.item
+            value: state.parent.item,
           });
         }
 
         Object.defineProperty(item, "_name", {
           enumerable: false,
-          value: node.name
+          value: node.name,
         });
       }
 
@@ -535,14 +530,14 @@ export class Parser<T> {
       }
     });
 
-    xml.on("text", function(text: string) {
+    xml.on("text", function (text: string) {
       if (state.rule && state.rule.isPrimitive) {
         if (!state.textList) state.textList = [];
         state.textList.push(text);
       }
     });
 
-    xml.on("closetag", function(name: string) {
+    xml.on("closetag", function (name: string) {
       let member = state.memberRef;
       const obj = state.item;
       let item: HandlerInstance = obj;
@@ -595,11 +590,11 @@ export class Parser<T> {
       }
     });
 
-    xml.on("end", function() {
-      resolve((rootState.item as HandlerInstance) as Output);
+    xml.on("end", function () {
+      resolve(rootState.item as HandlerInstance as Output);
     });
 
-    xml.on("error", function(err: Error) {
+    xml.on("error", function (err: Error) {
       console.error(err);
     });
 

@@ -2,10 +2,8 @@
 this worked:
 ./node_modules/pegjs/bin/pegjs src/spinoffs/xpathParser.pegjs && tsc --allowJs src/spinoffs/xpath.ts --outDir ./ && node xpath.js 
 //*/
-var XPathParser = require("./XPathParser");
-//import * as XPathParser from './XPathParser';
-//import XPathParser = require('./XPathParser');
-import { assign, fromPairs, map, zip } from "lodash";
+const XPathParser = require("./XPathParser");
+import { fromPairs, map, zip } from "lodash";
 
 export type NullOrString = null | string;
 export type Ops = "=" | "!=" | "&lt;" | "&lt;=" | "&gt;" | ">" | "&gt;=" | ">=";
@@ -32,27 +30,27 @@ export interface ItemParsed extends ItemCommon {
 
 export function parse(
   xpath: string,
-  xpathNamespaceTbl: Record<string, string>
+  xpathNamespaceTbl: Record<string, string>,
 ): ItemParsed[] {
   return map(
     map(
       XPathParser.parse(xpath, {}),
       (part: [string, string, string, PredicateRaw, string]) =>
         fromPairs(
-          zip(["axis", "namespace", "name", "predicates", "attribute"], part)
-        ) as Record<string, any>
+          zip(["axis", "namespace", "name", "predicates", "attribute"], part),
+        ) as Record<string, any>,
       // TODO we want this to be of type ItemParsedPredicateRaw
     ),
-    function(x: ItemParsedPredicateRaw) {
+    function (x: ItemParsedPredicateRaw) {
       const predicates = x.predicates;
       let parsedPredicates;
       if (predicates !== null) {
         const strippedPredicates = predicates.slice(1).slice(0, -1);
-        parsedPredicates = map(strippedPredicates, function(predicate) {
+        parsedPredicates = map(strippedPredicates, function (predicate) {
           return {
             left: predicate[0][1],
             op: predicate[1],
-            right: predicate[2]
+            right: predicate[2],
           };
         });
       }
@@ -64,7 +62,7 @@ export function parse(
           !xpathNamespaceTbl.hasOwnProperty(namespacePrefix))
       ) {
         throw new Error(
-          `Must specify namespace table for prefix: ${namespacePrefix}`
+          `Must specify namespace table for prefix: ${namespacePrefix}`,
         );
       }
 
@@ -75,13 +73,8 @@ export function parse(
         namespace: !!namespacePrefix ? xpathNamespaceTbl[namespacePrefix] : "",
         name: x.name,
         predicates: parsedPredicates,
-        attribute: x.attribute
+        attribute: x.attribute,
       };
-    }
+    },
   );
 }
-
-//console.log(parse('/Pathway'));
-//console.log(parse('/Pathway/DataNode/@*'));
-//console.log(parse('/Pathway/DataNode/@Height'));
-//console.log(JSON.stringify(parse('/Pathway/DataNode[@Width=35]/@Height'), null, '  '));
