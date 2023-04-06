@@ -15,12 +15,12 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm i --package-lock-only && npm run test",
     "postpublish": "TAG=\"v$(jq -r .version package.json)\" && git commit -am \"Bumped to version $TAG\" && git tag -a $TAG -m \"Published version $TAG\" && git push origin $TAG",
-    "test": "npm-run-all --silent test:* && rimraf ./test/**/*.js # In case of error, remove --silent to debug.",
+    "test": "npm-run-all test:* && rimraf ./test/**/*.js",
     "test:build": "npm-run-all test:build:*",
     "test:build:clean": "cd test && mkdirp cache && rimraf cache && mkdirp xmlns && rimraf xmlns && cd ..",
     "test:build:compile": "npm-run-all test:build:compile:*",
-    "test:build:compile:dir-example": "cd test && cxsd \"file://$PWD/input/dir-example.xsd\" >/dev/null && cd ..",
-    "test:build:ts": "tsc --project test.tsconfig.json >/dev/null # In case of error, remove >/dev/null to debug.",
+    "test:build:compile:dir-example": "cxsd \"./test/input/dir-example.xsd\"",
+    "test:build:ts": "tsc --project test.tsconfig.json >/dev/null",
     "test:localize": "npm-run-all test:localize:*",
     "test:run": "jest"
   },
@@ -91,6 +91,7 @@
     "sax": "^1.2.4"
   },
   "devDependencies": {
+    "@loanlink/cxsd": "github:Capital-Management-Group/cxsd",
     "@types/jest": "^24.0.21",
     "@types/lodash": "^4.14.144",
     "@types/node": "^10.17.0",

@@ -1,8 +1,4 @@
 import * as cxml from "../..";
-import * as Promise from "bluebird";
-var fs = require("fs");
-var path = require("path");
-import * as gpml from "../xmlns/pathvisio.org/GPML/2013a";
 import * as example from "../xmlns/dir-example";
 
 test("Attach handler w/ _before & _after. Parse string. No assertions.", () => {
@@ -22,7 +18,7 @@ test("Attach handler w/ _before & _after. Parse string. No assertions.", () => {
         //console.log(this);
       }
     },
-    "/dir"
+    "/dir",
   );
 
   return parser.parse('<dir name="empty"></dir>', example.document);
@@ -46,7 +42,7 @@ test("Attach handler w/ _before. Parse string.", () => {
         expect(this).toEqual({ name: "empty" });
       }
     },
-    "/dir"
+    "/dir",
   );
 
   const result = parser.parse('<dir name="empty"></dir>', example.document);
@@ -148,7 +144,7 @@ test("Attach handler w/ NOOP as _before & _after. Parse string. Promise w/ asser
       _before() {}
       _after() {}
     },
-    "/dir"
+    "/dir",
   );
 
   const result = parser.parse('<dir name="empty"></dir>', example.document);
@@ -169,7 +165,7 @@ test("Attach handler w/ NOOP as _before & _after. Parse string. Promise w/ asser
   });
 });
 
-test("Attach handler w/ NOOP as _before & _after. Parse string w/ timeout. Promise w/ assertions.", done => {
+test("Attach handler w/ NOOP as _before & _after. Parse string w/ timeout. Promise w/ assertions.", (done) => {
   // NOTE: this assertion count is NOT taking into account
   // the commented out expect below regarding
   // "dir instanceof example.document.dir.constructor"
@@ -182,12 +178,12 @@ test("Attach handler w/ NOOP as _before & _after. Parse string w/ timeout. Promi
       _before() {}
       _after() {}
     },
-    "/dir"
+    "/dir",
   );
 
   const result = parser.parse('<dir name="empty"></dir>', example.document);
 
-  setTimeout(function() {
+  setTimeout(function () {
     result.then((doc: example.document) => {
       expect(doc).toEqual({ dir: { name: "empty" } });
       var dir = doc.dir;
