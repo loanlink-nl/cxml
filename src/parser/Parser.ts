@@ -423,7 +423,7 @@ export class Parser<T> {
       // Read xmlns namespace prefix definitions before parsing node name.
 
       for (const key of Object.keys(attrTbl)) {
-        if (key.substr(0, 5) == "xmlns") {
+        if (key.substring(0, 5) == "xmlns") {
           const nsParts = key.match(/^xmlns(:(.+))?$/);
 
           if (nsParts) {
@@ -438,8 +438,8 @@ export class Parser<T> {
       // Parse node name and possible namespace prefix.
 
       if (splitter >= 0) {
-        nodePrefix = name.substr(0, splitter);
-        name = name.substr(splitter + 1);
+        nodePrefix = name.substring(0, splitter);
+        name = name.substring(splitter + 1);
       }
 
       // Add internal surrogate key namespace prefix to node name.
@@ -478,13 +478,13 @@ export class Parser<T> {
           splitter = key.indexOf(":");
 
           if (splitter >= 0) {
-            const attrPrefix = key.substr(0, splitter);
+            const attrPrefix = key.substring(0, splitter);
             if (attrPrefix == "xmlns") continue;
 
             const attrNamespace = namespaceTbl[attrPrefix];
 
             if (attrNamespace) {
-              attr = attrNamespace[1] + key.substr(splitter + 1);
+              attr = attrNamespace[1] + key.substring(splitter + 1);
             } else {
               console.warn("Namespace not found for " + key);
               continue;
