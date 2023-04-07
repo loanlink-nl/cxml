@@ -91,7 +91,7 @@
     "sax": "^1.2.4"
   },
   "devDependencies": {
-    "@loanlink/cxsd": "github:Capital-Management-Group/cxsd",
+    "@loanlink/cxsd": "../cxsd",
     "@types/jest": "^24.0.21",
     "@types/lodash": "^4.14.144",
     "@types/node": "^10.17.0",
