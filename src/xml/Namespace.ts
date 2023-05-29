@@ -116,7 +116,7 @@ export class Namespace extends NamespaceBase<Context> {
   }
 
   /** Get an internally used arbitrary prefix for fully qualified names
-	  * in this namespace. */
+   * in this namespace. */
 
   getPrefix() {
     return this.id + ":";
