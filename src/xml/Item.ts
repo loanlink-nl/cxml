@@ -1,8 +1,8 @@
 // This file is part of cxml, copyright (c) 2015-2017 BusFaster Ltd.
 // Released under the MIT license, see LICENSE.
 
-import { TypeSpec } from "./TypeSpec";
-import { MemberSpec } from "./MemberSpec";
+import { TypeSpec } from "./TypeSpec.js"
+import { MemberSpec } from "./MemberSpec.js"
 
 export interface ItemType {
   new (...args: any[]): Item;

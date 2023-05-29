@@ -1,11 +1,11 @@
 // This file is part of cxml, copyright (c) 2016 BusFaster Ltd.
 // Released under the MIT license, see LICENSE.
 
-import { Namespace } from "./Namespace";
-import { MemberSpec } from "./MemberSpec";
-import { MemberRef, RawRefSpec } from "./MemberRef";
-import { Rule, RuleClass, Member } from "../parser/Rule";
-import { Item } from "./Item";
+import { Namespace } from "./Namespace.js"
+import { MemberSpec } from "./MemberSpec.js"
+import { MemberRef, RawRefSpec } from "./MemberRef.js"
+import { Rule, RuleClass, Member } from "../parser/Rule.js"
+import { Item } from "./Item.js"
 
 /** Tuple: flags, parent type ID, child element list, attribute list.
  * Serialized JSON format. */

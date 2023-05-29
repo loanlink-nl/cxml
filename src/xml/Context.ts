@@ -1,11 +1,11 @@
 // This file is part of cxml, copyright (c) 2016 BusFaster Ltd.
 // Released under the MIT license, see LICENSE.
 
-import { Namespace, ModuleExports } from "./Namespace";
-import { TypeSpec, RawTypeSpec } from "./TypeSpec";
-import { MemberSpec, RawMemberSpec } from "./MemberSpec";
-import { Item } from "../xml/Item";
-import { ContextBase } from "./ContextBase";
+import { Namespace, ModuleExports } from "./Namespace.js"
+import { TypeSpec, RawTypeSpec } from "./TypeSpec.js"
+import { MemberSpec, RawMemberSpec } from "./MemberSpec.js"
+import { Item } from "../xml/Item.js"
+import { ContextBase } from "./ContextBase.js"
 
 /** XML parser context, holding definitions of all imported namespaces. */
 

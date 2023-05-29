@@ -1,11 +1,11 @@
 // This file is part of cxml, copyright (c) 2015-2017 BusFaster Ltd.
 // Released under the MIT license, see LICENSE.
 
-import { NamespaceBase } from "./NamespaceBase";
-import { Rule } from "../parser/Rule";
-import { TypeSpec, parseName } from "./TypeSpec";
-import { MemberRef } from "./MemberRef";
-import { Item } from "./Item";
+import { NamespaceBase } from "./NamespaceBase.js"
+import { Rule } from "../parser/Rule.js"
+import { TypeSpec, parseName } from "./TypeSpec.js"
+import { MemberRef } from "./MemberRef.js"
+import { Item } from "./Item.js"
 
 /** Tuple: name, type ID list, flags, substituted member ID */
 export type RawMemberSpec = [string, number[], number, number];

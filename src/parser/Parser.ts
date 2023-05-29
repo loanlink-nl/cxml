@@ -5,13 +5,13 @@ import { pick, toPairs } from "lodash";
 import * as stream from "stream";
 import * as sax from "sax";
 
-import { Context } from "../xml/Context";
-import { Namespace } from "../xml/Namespace";
-import { Rule, RuleClass, HandlerInstance } from "./Rule";
-import { MemberRef } from "../xml/MemberRef";
-import { State } from "./State";
-import { defaultContext } from "../importer/JS";
-import { parse, ItemParsed } from "../spinoffs/xpath";
+import { Context } from "../xml/Context.js"
+import { Namespace } from "../xml/Namespace.js"
+import { Rule, RuleClass, HandlerInstance } from "./Rule.js"
+import { MemberRef } from "../xml/MemberRef.js"
+import { State } from "./State.js"
+import { defaultContext } from "../importer/JS.js"
+import { parse, ItemParsed } from "../spinoffs/xpath.js"
 
 export type ItemParsedKey = keyof ItemParsed;
 export type ItemParsedValue = ItemParsed[ItemParsedKey];

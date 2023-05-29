@@ -1,10 +1,10 @@
 // This file is part of cxml, copyright (c) 2016 BusFaster Ltd.
 // Released under the MIT license, see LICENSE.
 
-import { TypeSpec } from "./TypeSpec";
-import { MemberSpec } from "./MemberSpec";
-import { Context } from "./Context";
-import { NamespaceBase } from "./NamespaceBase";
+import { TypeSpec } from "./TypeSpec.js"
+import { MemberSpec } from "./MemberSpec.js"
+import { Context } from "./Context.js"
+import { NamespaceBase } from "./NamespaceBase.js"
 
 export interface ModuleExports {
   [name: string]: any;
