@@ -1,7 +1,7 @@
 // This file is part of cxml, copyright (c) 2016 BusFaster Ltd.
 // Released under the MIT license, see LICENSE.
 
-import { ContextBase } from "./ContextBase.js"
+import { ContextBase } from "./ContextBase";
 
 export class NamespaceBase<Context extends ContextBase<any>> {
   constructor(name: string, id: number, context: Context) {

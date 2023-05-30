@@ -1,10 +1,10 @@
 // This file is part of cxml, copyright (c) 2016 BusFaster Ltd.
 // Released under the MIT license, see LICENSE.
 
-import { Namespace, ModuleExports, ImportSpec } from "../xml/Namespace.js"
-import { RawMemberSpec } from "../xml/MemberSpec.js"
-import { RawTypeSpec } from "../xml/TypeSpec.js"
-import { Context } from "../xml/Context.js"
+import { Namespace, ModuleExports, ImportSpec } from "../xml/Namespace";
+import { RawMemberSpec } from "../xml/MemberSpec";
+import { RawTypeSpec } from "../xml/TypeSpec";
+import { Context } from "../xml/Context";
 
 /** Context for namespaces defined by calling register(). */
 export var defaultContext = new Context();

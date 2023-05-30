@@ -1,7 +1,7 @@
 // This file is part of cxml, copyright (c) 2016 BusFaster Ltd.
 // Released under the MIT license, see LICENSE.
 
-import { NamespaceBase } from "./NamespaceBase.js"
+import { NamespaceBase } from "./NamespaceBase";
 
 /** XML parser context, holding definitions of all imported namespaces. */
 
