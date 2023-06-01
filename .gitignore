@@ -10,3 +10,5 @@ dist/
 *.tgz
 .direnv/
 !src/spinoffs/XPathParser.d.ts
+
+.DS_Store

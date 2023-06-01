@@ -3,14 +3,7 @@
     "declaration": false,
     "module": "commonjs",
     "noImplicitAny": false,
-    "lib": [
-      "dom",
-      "es2015",
-      "es2016"
-    ],
-    "target": "es5"
+    "target": "es2021"
   },
-  "include": [
-    "./test/**/*.ts"
-  ]
+  "include": ["./test/**/*.ts"]
 }
