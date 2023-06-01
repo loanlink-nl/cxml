@@ -1,6 +1,6 @@
 {
   "name": "@loanlink/cxml",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Advanced schema-aware streaming XML parser",
   "author": "Loanlink",
   "license": "MIT",
