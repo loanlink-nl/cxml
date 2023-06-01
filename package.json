@@ -16,9 +16,8 @@
   "types": "dist/cxml.d.ts",
   "scripts": {
     "build": "npm-run-all build:*",
-    "build:clean": "mkdirp dist && rimraf dist/",
-    "build:pegjs": "mkdirp dist/spinoffs && pegjs -o dist/spinoffs/XPathParser.js src/spinoffs/XPathParser.pegjs",
-    "build:typescript": "ncp src/spinoffs/XPathParser.d.ts dist/spinoffs/XPathParser.d.ts && tsc --project tsconfig.json",
+    "build:clean": "rimraf ./dist",
+    "build:typescript": "tsc",
     "prepare": "npm run build",
     "prepublishOnly": "npm i --package-lock-only && npm run test",
     "postpublish": "TAG=\"v$(jq -r .version package.json)\" && git commit -am \"Bumped to version $TAG\" && git tag -a $TAG -m \"Published version $TAG\" && git push origin $TAG",
