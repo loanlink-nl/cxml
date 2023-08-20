@@ -14,6 +14,9 @@
   "homepage": "https://github.com/Capital-Management-Group/cxml#readme",
   "main": "dist/cxml.js",
   "types": "dist/cxml.d.ts",
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
     "build": "npm-run-all build:*",
     "build:clean": "rimraf ./dist",
