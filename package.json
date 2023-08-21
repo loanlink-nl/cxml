@@ -27,9 +27,7 @@
     "test": "npm-run-all test:* && rimraf ./test/**/*.js",
     "test:build": "npm-run-all test:build:*",
     "test:build:clean": "cd test && mkdirp cache && rimraf cache && mkdirp xmlns && rimraf xmlns && cd ..",
-    "test:build:compile": "npm-run-all test:build:compile:*",
-    "test:build:compile:dir-example": "cxsd \"./test/input/dir-example.xsd\"",
-    "test:build:ts": "tsc --project test.tsconfig.json >/dev/null",
+    "test:build:ts": "tsc --project test.tsconfig.json --noEmit",
     "test:localize": "npm-run-all test:localize:*",
     "test:run": "jest"
   },
