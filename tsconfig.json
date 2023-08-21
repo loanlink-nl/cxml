@@ -10,7 +10,9 @@
     "declarationMap": true,
 
     "noImplicitAny": true,
-    "noImplicitThis": true
+    "noImplicitThis": true,
+
+    "allowJs": true
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "src/**/*.js"]
 }
