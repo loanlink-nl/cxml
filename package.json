@@ -47,7 +47,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.11",
     "@types/lodash": "^4.14.202",
-    "@types/node": "^18.19.3",
+    "@types/node": "^18.19.5",
     "@types/sax": "^1.2.7",
     "@types/source-map-support": "^0.5.10",
     "jest": "^29.7.0",
