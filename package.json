@@ -6,17 +6,20 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Capital-Management-Group/cxml.git"
+    "url": "git+https://github.com/loanlink-nl/cxml.git"
   },
   "bugs": {
-    "url": "https://github.com/Capital-Management-Group/cxml/issues"
+    "url": "https://github.com/loanlink-nl/cxml/issues"
   },
-  "homepage": "https://github.com/Capital-Management-Group/cxml#readme",
+  "homepage": "https://github.com/loanlink-nl/cxml#readme",
   "main": "dist/cxml.js",
   "types": "dist/cxml.d.ts",
   "files": [
     "dist/**"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "npm-run-all build:*",
     "build:clean": "rimraf ./dist",
