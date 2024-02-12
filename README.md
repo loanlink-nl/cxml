@@ -1,11 +1,8 @@
-cxml
-====
+# @loanlink/cxml
 
-NOTE: the master branch of the source repo for this project did not compile. It also did not support xpath queries. [This fork](https://github.com/ariutta/cxml) updates the code so that master compiles, augments the testing and adds xpath support.
+Schema-aware XML parsing
 
-[![build status](https://travis-ci.org/ariutta/cxml.svg?branch=master)](http://travis-ci.org/ariutta/cxml)
-[![dependency status](https://david-dm.org/ariutta/cxml.svg)](https://david-dm.org/ariutta/cxml)
-[![npm version](https://img.shields.io/npm/v/cxml.svg)](https://www.npmjs.com/package/cxml)
+---
 
 ![Atom screenshot](src/screenshot.png)
 
@@ -17,8 +14,7 @@ It can handle pretty hairy schema such as
 [INSPIRE](http://inspire.ec.europa.eu/).
 Output is fully typed and structured according to the actual meaning of input data, as defined in the schema.
 
-Introduction
-------------
+## Introduction
 
 For example this XML:
 
@@ -70,8 +66,8 @@ Check out the example schema
 There's much more. What if we parse an empty dir:
 
 ```typescript
-import * as cxml from 'cxml';
-import * as example from 'cxml/test/xmlns/dir-example';
+import * as cxml from "cxml";
+import * as example from "cxml/test/xmlns/dir-example";
 
 var parser = new cxml.Parser();
 
@@ -82,19 +78,17 @@ Now we can print the result and try some magical features:
 
 ```typescript
 result.then((doc: example.document) => {
+  console.log(JSON.stringify(doc)); // {"dir":{"name":"empty"}}
+  var dir = doc.dir;
 
-    console.log( JSON.stringify(doc) );  // {"dir":{"name":"empty"}}
-    var dir = doc.dir;
+  console.log(dir instanceof example.document.dir.constructor); // true
+  console.log(dir instanceof example.document.file.constructor); // false
 
-    console.log( dir instanceof example.document.dir.constructor );   // true
-    console.log( dir instanceof example.document.file.constructor );  // false
+  console.log(dir instanceof example.DirType); // true
+  console.log(dir instanceof example.FileType); // false
 
-    console.log( dir instanceof example.DirType );   // true
-    console.log( dir instanceof example.FileType );  // false
-
-    console.log( dir._exists );          // true
-    console.log( dir.file[0]._exists );  // false (not an error!)
-
+  console.log(dir._exists); // true
+  console.log(dir.file[0]._exists); // false (not an error!)
 });
 ```
 
@@ -106,32 +100,30 @@ The magical `_exists` flag is `true` in the prototypes and `false` in the placeh
 We can also process data as soon as the parser sees it in the incoming stream:
 
 ```typescript
-parser.attach(class DirHandler extends (example.document.dir.constructor) {
-
+parser.attach(
+  class DirHandler extends example.document.dir.constructor {
     /** Fires when the opening <dir> and attributes have been parsed. */
 
     _before() {
-        console.log('Before ' + this.name + ': ' + JSON.stringify(this));
+      console.log("Before " + this.name + ": " + JSON.stringify(this));
     }
 
     /** Fires when the closing </dir> and children have been parsed. */
 
     _after() {
-        console.log('After  ' + this.name + ': ' + JSON.stringify(this));
+      console.log("After  " + this.name + ": " + JSON.stringify(this));
     }
-
-});
+  },
+);
 ```
 
 The best part: your code is fully typed with comments pulled from the schema! See the screenshot at the top.
 
-Related projects
-----------------
+## Related projects
 
 - [node-xml4js](https://github.com/peerlibrary/node-xml4js) uses schema information to read XML into nicely structured objects.
 
-License
-=======
+# License
 
 [The MIT License](https://raw.githubusercontent.com/ariutta/cxml/master/LICENSE)
 
