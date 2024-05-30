@@ -1,5 +1,5 @@
 {
-  "name": "@loanlink/cxml",
+  "name": "@loanlink-nl/cxml",
   "version": "1.0.2",
   "description": "Advanced schema-aware streaming XML parser",
   "author": "Loanlink",
@@ -26,7 +26,6 @@
     "build:typescript": "tsc",
     "prepare": "npm run build",
     "prepublishOnly": "npm i --package-lock-only && npm run test",
-    "postpublish": "TAG=\"v$(jq -r .version package.json)\" && git commit -am \"Bumped to version $TAG\" && git tag -a $TAG -m \"Published version $TAG\" && git push origin $TAG",
     "test": "npm-run-all test:* && rimraf ./test/**/*.js",
     "test:build": "npm-run-all test:build:*",
     "test:build:clean": "cd test && mkdirp cache && rimraf cache && mkdirp xmlns && rimraf xmlns && cd ..",
@@ -95,5 +94,8 @@
       "<rootDir>/(node_modules)/"
     ],
     "testRegex": "((/src/.*\\.test\\.(ts|tsx|js))|(/test/spec/.*\\.(ts|tsx|js)))$"
+  },
+  "publishConfig": {
+    "@loanlink-nl:registry": "https://npm.pkg.github.com/loanlink-nl"
   }
 }
