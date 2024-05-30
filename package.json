@@ -28,10 +28,7 @@
     "prepublishOnly": "npm i --package-lock-only && npm run test",
     "test": "npm-run-all test:* && rimraf ./test/**/*.js",
     "test:build": "npm-run-all test:build:*",
-    "test:build:clean": "cd test && mkdirp cache && rimraf cache && mkdirp xmlns && rimraf xmlns && cd ..",
-    "test:build:ts": "tsc --project test.tsconfig.json --noEmit",
-    "test:localize": "npm-run-all test:localize:*",
-    "test:run": "jest"
+    "test:build:clean": "cd test && mkdirp cache && rimraf cache && mkdirp xmlns && rimraf xmlns && cd .."
   },
   "keywords": [
     "xml",
