@@ -55,7 +55,7 @@
     "pegjs": "^0.10.0",
     "rimraf": "^6.0.0",
     "source-map-support": "^0.5.16",
-    "ts-jest": "^29.2.2",
+    "ts-jest": "^29.3.0",
     "typescript": "^5.8.2"
   },
   "jest": {
